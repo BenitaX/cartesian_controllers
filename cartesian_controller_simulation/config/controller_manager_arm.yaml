@@ -147,7 +147,7 @@ cartesian_motion_controller:
     # See the cartesian_compliance_controller
     command_interfaces:
       - position
-        #- velocity
+      #- velocity
 
     solver:
         error_scale: 1.0

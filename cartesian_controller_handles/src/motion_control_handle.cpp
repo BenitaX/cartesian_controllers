@@ -209,7 +209,7 @@ MotionControlHandle::on_configure(const rclcpp_lifecycle::State & previous_state
   m_marker.scale = 0.1;
   m_marker.name = "motion_control_handle";
   m_marker.pose = m_current_pose.pose;
-  m_marker.description = "6D control of link: " + m_end_effector_link;
+  m_marker.description = "5^D control of link: " + m_end_effector_link;
 
   prepareMarkerControls(m_marker);
 
