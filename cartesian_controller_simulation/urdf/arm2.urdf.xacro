@@ -3,37 +3,48 @@
 
         <!--
         RoboNav Arm URDF - 5 degrees of freedom
-        Modified to remove joint6/link6
+        joint 1 is prismatic along x axis (left-right motion)
+        joint 2,3,4 are revolute along y axis (pitch motion)
+        joint 5 is attached to joint 4 and is along x-axis (roll motion)
+        aka joint 4 and 5 form a wrist (pitch and roll)
         -->
 
         <xacro:include filename="$(find cartesian_controller_simulation)/urdf/joint.urdf.xacro"/>
 
         <!-- ROS2 control interfaces -->
         <ros2_control name="cartesian_controller_simulation" type="system">
-                <xacro:joint_interface name="joint1" p="1000" d="0.5" />
-                <xacro:joint_interface name="joint2" p="1000" d="0.5" />
-                <xacro:joint_interface name="joint3" p="500" d="0.5" />
-                <xacro:joint_interface name="joint4" p="100" d="0.5" />
-                <joint name="joint5">
+                
+                <joint name="joint1"> //base slide - prismatic
+
                 <command_interface name="position">
-                        <param name="min">-0.2</param>
-                        <param name="max">0.2</param>
+                        <param name="min">-0.5</param>
+                        <param name="max">0.5</param>
                 </command_interface>
+
                 <command_interface name="velocity">
                         <param name="min">-1</param>
                         <param name="max">1</param>
                 </command_interface>
+
                 <param name="p">10</param>
                 <param name="d">0.5</param>
                 <state_interface name="position"/>
                 <state_interface name="velocity"/>
                 <state_interface name="effort"/>
                 </joint>
-                <!-- Removed joint6 interface -->
+
+
+                <xacro:joint_interface name="joint2" p="1000" d="0.5" /> //shoulder pitch
+                <xacro:joint_interface name="joint3" p="500" d="0.5" /> // elbow pitch
+                <xacro:joint_interface name="joint4" p="100" d="0.5" /> //wrist pitch
+                <xacro:joint_interface name="joint5" p="50" d="0.5" /> //wrist roll
+                
+                
                 <hardware>
                         <plugin>cartesian_controller_simulation/Simulator</plugin>
                         <param name="mujoco_model">$(arg mujoco_model)</param>
                 </hardware>
+
         </ros2_control>
 
         <!-- joint properties -->
@@ -45,7 +56,7 @@
         <xacro:property name="link1_length" value="0.15" />
         <xacro:property name="link2_length" value="0.5" />
         <xacro:property name="link3_length" value="0.5" />
-        <xacro:property name="link4_length" value="0.15" />
+        <xacro:property name="link4_length" value="0.08" />
         <xacro:property name="link5_length" value="0.10" />
         <!-- Removed link6_length -->
 
@@ -101,12 +112,13 @@
                 </visual>
         </link>
 
-        <joint name="joint1" type="revolute"> // ask if continous or revolute
+        <!-- Prismatic slider -->
+        <joint name="joint1" type="prismatic"> // base slide
                 <parent link="base_link" />
                 <child link = "link1" />
                 <origin xyz="0.0 0.0 ${3.0 / 2.0 * joint_length}" rpy="0.0 0.0 0.0" />
-                <axis xyz="0 0 1" />
-                <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="1.0" velocity="10.0"/>
+                <axis xyz="1 0 0" />
+                <limit lower="-0.5" upper="0.5" effort="100" velocity="1.0"/>
         </joint>
 
         <link name="link1">
@@ -136,6 +148,7 @@
                 </visual>
         </link>
 
+        <!-- Shoulder pitch joint -->
         <joint name="joint2" type="revolute">
                 <parent link="link1" />
                 <child link = "link2" />
@@ -171,7 +184,8 @@
                 </visual>
         </link>
 
-        <joint name="joint3" type="revolute"> // ask if continous or revolute
+        <!-- Elbow pitch joint -->
+        <joint name="joint3" type="revolute"> //elbow pitch
                 <parent link="link2" />
                 <child link = "link3" />
                 <origin xyz="0.0 -${joint_length} ${link2_length}" rpy="0.0 0.0 0.0" />
@@ -206,6 +220,7 @@
                 </visual>
         </link>
 
+        <!-- Wrist pitch joint -->
         <joint name="joint4" type="revolute">
                 <parent link="link3" />
                 <child link = "link4" />
@@ -241,18 +256,19 @@
                 </visual>
         </link>
 
-        <joint name="joint5" type="prismatic">
+        <!-- Wrist roll joint -->
+        <joint name="joint5" type="revolute">
                 <parent link="link4" />
                 <child link = "link5" />
-                <origin xyz="0.0 ${link4_length} ${joint_length}" rpy="0.0 0.0 0.0" />
-                <axis xyz="0 0 1" />
-                <limit lower="-0.2" upper="0.2" effort="1.0" velocity="1.0"/>
+                <origin xyz="0.0 ${link4_length} 0" rpy="0.0 0.0 0.0" />
+                <axis xyz="0 1 0" />
+                <limit lower="${-pi}" upper="${pi}" effort="1.0" velocity="2.0"/>
         </joint>
 
         <link name="link5">
                 <inertial>
-                        <origin xyz="0 0 ${link5_length * 1.5}" rpy="0 0 0"/>
-                        <mass value="1"/>
+                        <origin xyz="0 ${link5_length * 1.5} 0" rpy="0 0 0"/>
+                        <mass value="0.5"/>
                         <inertia ixx="1.0"  ixy="0"  ixz="0" iyy="1.0" iyz="0" izz="1.0" />
                 </inertial>
                 <visual name="joint5">
@@ -263,7 +279,7 @@
                         <material name="link5"/>
                 </visual>
                 <visual name="link">
-                        <origin xyz="0 0 ${link5_length * 1.5}" rpy="0 0 0" />
+                        <origin xyz="0 ${link5_length * 1.5} 0" rpy="${pi/2.0} 0 0" /> 
                         <geometry>
                                 <cylinder length="${link5_length * 3}" radius="${link_radius * 1.5}"/>
                         </geometry>
@@ -276,7 +292,7 @@
 
         <!-- Attach a sensor link at the end of link5 -->
         <joint name="sensor_link_joint" type="fixed">
-                <origin xyz="0 0 ${link5_length * 3}" rpy="0 0 0"/>
+                <origin xyz="0 ${link5_length * 3} 0" rpy="0 0 0"/>
                 <parent link="link5"/>
                 <child link="sensor_link"/>
         </joint>
