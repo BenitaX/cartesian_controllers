@@ -24,7 +24,7 @@ def generate_launch_description():
                 [
                     FindPackageShare("cartesian_controller_simulation"),
                     "urdf",
-                    "arm.urdf.xacro",
+                    "arm2.urdf.xacro",
                 ]
             ),
             " ",
@@ -33,7 +33,7 @@ def generate_launch_description():
                 [
                     FindPackageShare("cartesian_controller_simulation"),
                     "etc",
-                    "arm_mujoco.xml",
+                    "arm2.xml",
                 ]
             ),
         ]

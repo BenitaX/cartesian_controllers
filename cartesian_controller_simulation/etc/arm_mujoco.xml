@@ -57,7 +57,7 @@
                                                 <geom size="0.02 0.015" pos="0 0.15 0" type="cylinder" material="joint_part2"/>
                                                 <body name="link5" pos="0 0.15 0.03">
                                                         <inertial pos="0 0 0.05" mass="1" diaginertia="1 1 1"/>
-                                                        <joint name="joint5" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319"/>
+                                                        <joint name="joint5" type="slide" pos="0 0 0" axis="0 0 1" limited="true" range="-0.2 0.2"/>
                                                         <geom size="0.02 0.015" type="cylinder" material="joint_part1"/>
                                                         <geom size="0.01 0.05" pos="0 0 0.05" type="cylinder" material="link5"/>
                                                         <!-- REMOVED link6 body - 5-DOF ends at link5 -->
