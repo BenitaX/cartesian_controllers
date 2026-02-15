@@ -3,7 +3,7 @@
 
         <!--
         RoboNav Arm URDF - 5 degrees of freedom
-        joint 1 is prismatic along x axis (left-right motion)
+        joint 1 is prismatic along y axis (left-right motion)
         joint 2,3,4 are revolute along y axis (pitch motion)
         joint 5 is attached to joint 4 and is along x-axis (roll motion)
         aka joint 4 and 5 form a wrist (pitch and roll)
@@ -55,9 +55,9 @@
         <xacro:property name="link_radius" value="0.01" />
         <xacro:property name="link1_length" value="0.15" />
         <xacro:property name="link2_length" value="0.5" />
-        <xacro:property name="link3_length" value="0.5" />
-        <xacro:property name="link4_length" value="0.08" />
-        <xacro:property name="link5_length" value="0.10" />
+        <xacro:property name="link3_length" value="0.3" />
+        <xacro:property name="link4_length" value="0.1" />
+        <xacro:property name="link5_length" value="0.05" />
         <!-- Removed link6_length -->
 
         <!-- colors -->
@@ -117,7 +117,7 @@
                 <parent link="base_link" />
                 <child link = "link1" />
                 <origin xyz="0.0 0.0 ${3.0 / 2.0 * joint_length}" rpy="0.0 0.0 0.0" />
-                <axis xyz="1 0 0" />
+                <axis xyz="0 1 0" />
                 <limit lower="-0.5" upper="0.5" effort="100" velocity="1.0"/>
         </joint>
 
@@ -224,7 +224,7 @@
         <joint name="joint4" type="revolute">
                 <parent link="link3" />
                 <child link = "link4" />
-                <origin xyz="0.0 ${joint_length} ${link3_length}" rpy="0.0 ${pi / 2.0} 0.0" />
+                <origin xyz="0.0 ${joint_length} ${link3_length}" rpy="0.0 0.0 0.0" />
                 <axis xyz="0 1 0" />
                 <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="1.0" velocity="10.0"/>
         </joint>
@@ -236,20 +236,20 @@
                         <inertia ixx="1.0"  ixy="0"  ixz="0" iyy="1.0" iyz="0" izz="1.0" />
                 </inertial>
                 <visual name="joint4">
-                        <origin xyz="0 0 0" rpy="${pi / 2.0} 0 0" />
+                        <origin xyz="0 0 0" rpy="0 0 0" />
                         <geometry>
                                 <cylinder length="${joint_length}" radius="${joint_radius}"/>
                         </geometry>
                         <material name="link4"/>
                 </visual>
                 <visual name="link">
-                        <origin xyz="0 ${link4_length / 2.0} 0" rpy="${pi / 2.0} 0 0" />
+                        <origin xyz="0 0 ${link4_length / 2.0}" rpy="0 0 0" />
                         <geometry>
                                 <cylinder length="${link4_length}" radius="${link_radius}"/>
                         </geometry>
                 </visual>
                 <visual name="joint5">
-                        <origin xyz="0 ${link4_length} 0" rpy="0 0 0" />
+                        <origin xyz="0 0 ${link4_length}" rpy="${pi / 2.0} 0 0" />
                         <geometry>
                                 <cylinder length="${joint_length}" radius="${joint_radius}"/>
                         </geometry>
@@ -260,14 +260,14 @@
         <joint name="joint5" type="revolute">
                 <parent link="link4" />
                 <child link = "link5" />
-                <origin xyz="0.0 ${link4_length} 0" rpy="0.0 0.0 0.0" />
+                <origin xyz="0.0 0 ${link4_length}" rpy="0.0 ${pi / 2.0} 0.0" />
                 <axis xyz="0 1 0" />
                 <limit lower="${-pi}" upper="${pi}" effort="1.0" velocity="2.0"/>
         </joint>
 
         <link name="link5">
                 <inertial>
-                        <origin xyz="0 ${link5_length * 1.5} 0" rpy="0 0 0"/>
+                        <origin xyz="0 0 ${link5_length * 1.5}" rpy="0 0 0"/>
                         <mass value="0.5"/>
                         <inertia ixx="1.0"  ixy="0"  ixz="0" iyy="1.0" iyz="0" izz="1.0" />
                 </inertial>
@@ -279,7 +279,7 @@
                         <material name="link5"/>
                 </visual>
                 <visual name="link">
-                        <origin xyz="0 ${link5_length * 1.5} 0" rpy="${pi/2.0} 0 0" /> 
+                        <origin xyz="0 0 ${link5_length * 1.5}" rpy="0 0 0" /> 
                         <geometry>
                                 <cylinder length="${link5_length * 3}" radius="${link_radius * 1.5}"/>
                         </geometry>
@@ -292,7 +292,7 @@
 
         <!-- Attach a sensor link at the end of link5 -->
         <joint name="sensor_link_joint" type="fixed">
-                <origin xyz="0 ${link5_length * 3} 0" rpy="0 0 0"/>
+                <origin xyz="0 0 ${link5_length * 3}" rpy="0 0 0"/>
                 <parent link="link5"/>
                 <child link="sensor_link"/>
         </joint>
