@@ -5,7 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded: ~
       Splitter Ratio: 0.5
-    Tree Height: 565
+    Tree Height: 571
 Visualization Manager:
   Class: ""
   Displays:
@@ -34,6 +34,10 @@ Visualization Manager:
         All Enabled: true
         base_link:
           Value: true
+        invalid_compliance_link:
+          Value: true
+        invalid_sensor_link:
+          Value: true
         link1:
           Value: true
         link2:
@@ -43,8 +47,6 @@ Visualization Manager:
         link4:
           Value: true
         link5:
-          Value: true
-        link6:
           Value: true
         sensor_link:
           Value: true
@@ -58,18 +60,20 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        base_link:
-          link1:
-            link2:
-              link3:
-                link4:
-                  link5:
-                    link6:
+        world:
+          base_link:
+            link1:
+              link2:
+                link3:
+                  link4:
+                    link5:
+                      invalid_sensor_link:
+                        {}
                       sensor_link:
+                        invalid_compliance_link:
+                          {}
                         tool0:
                           {}
-        world:
-          {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -95,6 +99,14 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        invalid_compliance_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        invalid_sensor_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         link1:
           Alpha: 1
           Show Axes: false
@@ -120,11 +132,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        link6:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         sensor_link:
           Alpha: 1
           Show Axes: false
@@ -138,6 +145,9 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+      Mass Properties:
+        Inertia: false
+        Mass: false
       Name: RobotModel
       TF Prefix: ""
       Update Interval: 0
@@ -168,7 +178,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 0.9970916509628296
+      Distance: 0.6384595632553101
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -183,18 +193,18 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.3853989541530609
+      Pitch: 0.14539894461631775
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 0.8803882598876953
+      Yaw: 0.21038825809955597
     Saved: ~
 Window Geometry:
   Displays:
-    collapsed: true
+    collapsed: false
   Height: 786
-  Hide Left Dock: true
+  Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd000000010000000000000156000002b8fc0200000001fb000000100044006900730070006c006100790073000000003d000002b8000000c900ffffff00000435000002b800000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd000000010000000000000156000002bcfc0200000001fb000000100044006900730070006c006100790073010000003b000002bc000000c700ffffff000002d9000002bc00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Width: 1077
-  X: 572
-  Y: 189
+  X: 540
+  Y: 157

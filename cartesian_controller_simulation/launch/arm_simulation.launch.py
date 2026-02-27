@@ -55,7 +55,7 @@ def generate_launch_description():
     
     # RViz configuration
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("cartesian_controller_simulation"), "etc", "robot.rviz"]
+        [FindPackageShare("cartesian_controller_simulation"), "etc", "arm_robot.rviz"]
     )
 
     # Nodes
@@ -117,7 +117,7 @@ def generate_launch_description():
 
     # Visualization
     rviz_config = PathJoinSubstitution(
-        [FindPackageShare("cartesian_controller_simulation"), "etc", "robot.rviz"]
+        [FindPackageShare("cartesian_controller_simulation"), "etc", "arm_robot.rviz"]
     )
     rviz = Node(
         package="rviz2",

@@ -26,8 +26,8 @@
                         <param name="max">1</param>
                 </command_interface>
 
-                <param name="p">10</param>
-                <param name="d">0.5</param>
+                <param name="p">1</param>
+                <param name="d">2.0</param>
                 <state_interface name="position"/>
                 <state_interface name="velocity"/>
                 <state_interface name="effort"/>
@@ -99,14 +99,14 @@
 
         <link name="base_link" >
                 <inertial>
-                        <origin xyz="0 0 ${joint_length / 2.0}" rpy="0 0 0"/>
+                        <origin xyz="0 0 0.015" rpy="0 0 0"/>
                         <mass value="1"/>
                         <inertia ixx="1.0"  ixy="0"  ixz="0" iyy="1.0" iyz="0" izz="1.0" />
                 </inertial>
                 <visual name="base">
-                        <origin xyz="0 0 ${joint_length / 2.0}" rpy="0 0 0" />
+                        <origin xyz="0 0 0" rpy="0 0 0" />
                         <geometry>
-                                <cylinder length="${joint_length}" radius="${joint_radius}"/>
+                                <cylinder length="0.03" radius="0.02"/>
                         </geometry>
                         <material name="base"/>
                 </visual>
@@ -123,28 +123,30 @@
 
         <link name="link1">
                 <inertial>
-                        <origin xyz="0 0 ${link1_length / 2.0}" rpy="0 0 0"/>
+                        <origin xyz="0 0 0.075" rpy="0 0 0"/>
                         <mass value="1"/>
                         <inertia ixx="1.0"  ixy="0"  ixz="0" iyy="1.0" iyz="0" izz="1.0" />
                 </inertial>
-                <visual name="joint1">
+                <visual name="joint1_bottom">
                         <origin xyz="0 0 0" rpy="0 0 0" />
                         <geometry>
-                                <cylinder length="${joint_length}" radius="${joint_radius}"/>
+                                <cylinder length="0.03" radius="0.02"/>
                         </geometry>
                         <material name="link1"/>
                 </visual>
                 <visual name="link">
-                        <origin xyz="0 0 ${link1_length / 2.0}" rpy="0 0 0" />
+                        <origin xyz="0 0 0.075" rpy="0 0 0" />
                         <geometry>
-                                <cylinder length="${link1_length}" radius="${link_radius}"/>
+                                <cylinder length="0.15" radius="0.01"/>
                         </geometry>
+                        <material name="link1"/>
                 </visual>
-                <visual name="joint2">
-                        <origin xyz="0 0 ${link1_length}" rpy="${pi / 2.0} 0 0" />
+                <visual name="joint2_top">
+                        <origin xyz="0 0 0.15" rpy="1.5708 0 0" />
                         <geometry>
-                                <cylinder length="${joint_length}" radius="${joint_radius}"/>
+                                <cylinder length="0.03" radius="0.02"/>
                         </geometry>
+                        <material name="link1"/>
                 </visual>
         </link>
 
@@ -159,28 +161,30 @@
 
         <link name="link2">
                 <inertial>
-                        <origin xyz="0 0 ${link2_length / 2.0}" rpy="0 0 0"/>
+                        <origin xyz="0 0 0.25" rpy="0 0 0"/>
                         <mass value="1"/>
                         <inertia ixx="1.0"  ixy="0"  ixz="0" iyy="1.0" iyz="0" izz="1.0" />
                 </inertial>
                 <visual name="joint2">
-                        <origin xyz="0 0 0" rpy="${pi / 2.0} 0 0" />
+                        <origin xyz="0 0 0" rpy="1.5708 0 0" />
                         <geometry>
-                                <cylinder length="${joint_length}" radius="${joint_radius}"/>
+                                <cylinder length="0.03" radius="0.02"/>
                         </geometry>
                         <material name="link2"/>
                 </visual>
                 <visual name="link">
-                        <origin xyz="0 0 ${link2_length / 2.0}" rpy="0 0 0" />
+                        <origin xyz="0 0 0.25" rpy="0 0 0" />
                         <geometry>
-                                <cylinder length="${link2_length}" radius="${link_radius}"/>
+                                <cylinder length="0.5" radius="0.01"/>
                         </geometry>
+                        <material name="link2"/>
                 </visual>
                 <visual name="joint3">
-                        <origin xyz="0 0 ${link2_length}" rpy="${pi / 2.0} 0 0" />
+                        <origin xyz="0 0 0.5" rpy="1.5708 0 0" />
                         <geometry>
-                                <cylinder length="${joint_length}" radius="${joint_radius}"/>
+                                <cylinder length="0.03" radius="0.02"/>
                         </geometry>
+                        <material name="link2"/>
                 </visual>
         </link>
 
@@ -195,28 +199,30 @@
 
         <link name="link3">
                 <inertial>
-                        <origin xyz="0 0 ${link3_length / 2.0}" rpy="0 0 0"/>
+                        <origin xyz="0 0 0.15" rpy="0 0 0"/>
                         <mass value="1"/>
                         <inertia ixx="1.0"  ixy="0"  ixz="0" iyy="1.0" iyz="0" izz="1.0" />
                 </inertial>
                 <visual name="joint3">
-                        <origin xyz="0 0 0" rpy="${pi / 2.0} 0 0" />
+                        <origin xyz="0 0 0" rpy="1.5708 0 0" />
                         <geometry>
-                                <cylinder length="${joint_length}" radius="${joint_radius}"/>
+                                <cylinder length="0.03" radius="0.02"/>
                         </geometry>
                         <material name="link3"/>
                 </visual>
                 <visual name="link">
-                        <origin xyz="0 0 ${link3_length / 2.0}" rpy="0 0 0" />
+                        <origin xyz="0 0 0.15" rpy="0 0 0" />
                         <geometry>
-                                <cylinder length="${link3_length}" radius="${link_radius}"/>
+                                <cylinder length="0.3" radius="0.01"/>
                         </geometry>
+                        <material name="link3"/>
                 </visual>
                 <visual name="joint4">
-                        <origin xyz="0 0 ${link3_length}" rpy="${pi / 2.0} 0 0" />
+                        <origin xyz="0 0 0.3" rpy="1.5708 0 0" />
                         <geometry>
-                                <cylinder length="${joint_length}" radius="${joint_radius}"/>
+                                <cylinder length="0.03" radius="0.02"/>
                         </geometry>
+                        <material name="link3"/>
                 </visual>
         </link>
 
@@ -231,28 +237,30 @@
 
         <link name="link4">
                 <inertial>
-                        <origin xyz="0 0 ${link4_length / 2.0}" rpy="0 0 0"/>
+                        <origin xyz="0 0.05 0" rpy="0 0 0"/>
                         <mass value="1"/>
                         <inertia ixx="1.0"  ixy="0"  ixz="0" iyy="1.0" iyz="0" izz="1.0" />
                 </inertial>
                 <visual name="joint4">
-                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <origin xyz="0 0 0" rpy="1.5708 0 0" />
                         <geometry>
-                                <cylinder length="${joint_length}" radius="${joint_radius}"/>
+                                <cylinder length="0.03" radius="0.02"/>
                         </geometry>
                         <material name="link4"/>
                 </visual>
                 <visual name="link">
-                        <origin xyz="0 0 ${link4_length / 2.0}" rpy="0 0 0" />
+                        <origin xyz="0 0 0.05" rpy="0 0 0" />
                         <geometry>
-                                <cylinder length="${link4_length}" radius="${link_radius}"/>
+                                <cylinder length="0.1" radius="0.01"/>
                         </geometry>
+                        <material name="link4"/>
                 </visual>
                 <visual name="joint5">
-                        <origin xyz="0 0 ${link4_length}" rpy="${pi / 2.0} 0 0" />
+                        <origin xyz="0 0 0.1" rpy="0 1.5708 0" />
                         <geometry>
-                                <cylinder length="${joint_length}" radius="${joint_radius}"/>
+                                <cylinder length="0.03" radius="0.02"/>
                         </geometry>
+                        <material name="link4"/>
                 </visual>
         </link>
 
@@ -267,22 +275,23 @@
 
         <link name="link5">
                 <inertial>
-                        <origin xyz="0 0 ${link5_length * 1.5}" rpy="0 0 0"/>
+                        <origin xyz="0 0 0.075" rpy="0 0 0"/>
                         <mass value="0.5"/>
                         <inertia ixx="1.0"  ixy="0"  ixz="0" iyy="1.0" iyz="0" izz="1.0" />
                 </inertial>
                 <visual name="joint5">
                         <origin xyz="0 0 0" rpy="0 0 0" />
                         <geometry>
-                                <cylinder length="${joint_length}" radius="${joint_radius}"/>
+                                <cylinder length="0.03" radius="0.02"/>
                         </geometry>
                         <material name="link5"/>
                 </visual>
                 <visual name="link">
-                        <origin xyz="0 0 ${link5_length * 1.5}" rpy="0 0 0" /> 
+                        <origin xyz="0 0 0.075" rpy="0 0 0" /> 
                         <geometry>
-                                <cylinder length="${link5_length * 3}" radius="${link_radius * 1.5}"/>
+                                <cylinder length="0.15" radius="0.015"/>
                         </geometry>
+                        <material name="link5"/>
                 </visual>
         </link>
 
@@ -305,12 +314,47 @@
                 <child link="tool0"/>
         </joint>
         <link name="tool0">
-                <visual>
+                <visual name="sphere">
                         <origin xyz="0 0 0" rpy="0 0 0" />
                         <geometry>
-                                <sphere radius="${link_radius}"/>
+                                <sphere radius="0.015"/>
                         </geometry>
                         <material name="tip"/>
+                </visual>
+                <visual name="gripper_base">
+                        <origin xyz="0 0 0" rpy="0 0 0" />
+                        <geometry>
+                                <box size="0.04 0.05 0.02"/>
+                        </geometry>
+                        <material name="joint_part1"/>
+                </visual>
+                <visual name="right_finger_1">
+                        <origin xyz="0.04 0.02 0" rpy="0 0 0.3" />
+                        <geometry>
+                                <box size="0.12 0.016 0.016"/>
+                        </geometry>
+                        <material name="joint_part2"/>
+                </visual>
+                <visual name="right_finger_2">
+                        <origin xyz="0.075 0.03 0" rpy="0 0 1.2" />
+                        <geometry>
+                                <box size="0.06 0.016 0.016"/>
+                        </geometry>
+                        <material name="joint_part2"/>
+                </visual>
+                <visual name="left_finger_1">
+                        <origin xyz="0.04 -0.02 0" rpy="0 0 -0.3" />
+                        <geometry>
+                                <box size="0.12 0.016 0.016"/>
+                        </geometry>
+                        <material name="joint_part2"/>
+                </visual>
+                <visual name="left_finger_2">
+                        <origin xyz="0.075 -0.03 0" rpy="0 0 -1.2" />
+                        <geometry>
+                                <box size="0.06 0.016 0.016"/>
+                        </geometry>
+                        <material name="joint_part2"/>
                 </visual>
         </link>
 

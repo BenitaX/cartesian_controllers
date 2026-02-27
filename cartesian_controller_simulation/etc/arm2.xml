@@ -1,7 +1,9 @@
-<?xml version="1.0"?>
+<?xml version="1.0.0"?>
 <mujoco model="arm2">
     <compiler angle="radian" inertiafromgeom="true" balanceinertia="true"/>
-    <option integrator="RK4"/>
+    <option integrator="implicitfast" timestep="0.002"/>
+
+    <!-- <option integrator="RK4"/> -->
 
     <asset>
         <material name="joint_part1" rgba="0.525 0.713 0.662 1.0"/>
@@ -54,19 +56,30 @@
                             <joint name="joint4" type="hinge" axis="0 1 0" pos="0 0 0" range="-6.28 6.28" damping="0.5"/>
                             <geom type="cylinder" size="0.02 0.015" material="link4" pos="0 0 0" euler="1.5708 0 0"/>
                             <geom type="cylinder" size="0.01 0.05" material="link4" pos="0 0 0.05"/>
-                            <geom type="cylinder" size="0.02 0.015" material="link4" pos="0 0 0.1" euler="1.5708 0 0"/>
+                            <geom type="cylinder" size="0.02 0.015" material="link4" pos="0 0 0.1" euler="0 1.5708 0"/>
                             
-                            <!-- Joint5 (wrist roll, y-axis) -->
+                            <!-- Joint5 (wrist roll, x-axis) -->
                             <body name="link5" pos="0 0 0.1" euler="0 1.5708 0">
                                 <inertial pos="0 0 0.075" mass="0.5" diaginertia="0.5 0.5 0.5"/>
-                                <joint name="joint5" type="hinge" axis="0 1 0" pos="0 0 0" range="-3.14 3.14" damping="0.5"/>
-                                <geom type="cylinder" size="0.02 0.015" material="link5" pos="0 0 0"/>
-                                <geom type="cylinder" size="0.015 0.075" material="link5" pos="0 0 0.075"/>
+                                <joint name="joint5" type="hinge" axis="1 0 0" pos="0 0 0" range="-3.14 3.14" damping="0.5"/>
+                                <geom type="cylinder" size="0.02 0.015" material="link5" pos="0 0 0" euler="1.5708 0 0"/>
+                                <geom type="cylinder" size="0.015 0.075" material="link5" pos="0 0 0.075" euler="1.5708 0 0"/>
                                 
                                 <!-- End effector -->
                                 <body name="tool0" pos="0 0 0.15">
                                     <inertial pos="0 0 0" mass="0.1" diaginertia="0.01 0.01 0.01"/>
-                                    <geom type="sphere" size="0.01" material="tip"/>
+                                    <geom type="sphere" size="0.015" material="tip"/>
+                                    
+                                    <!-- Gripper Base (palm) -->
+                                    <geom type="box" size="0.02 0.025 0.01" pos="0 0 0" rgba="0.3 0.3 0.3 1"/>
+                                    
+                                    <!-- Right Finger (red) -->
+                                    <geom type="box" size="0.06 0.008 0.008" pos="0.04 0.02 0" euler="0 0 0.3" rgba="1 0 0 1"/>
+                                    <geom type="box" size="0.03 0.008 0.008" pos="0.075 0.03 0" euler="0 0 1.2" rgba="0.8 0 0 1"/>
+                                    
+                                    <!-- Left Finger (blue) -->
+                                    <geom type="box" size="0.06 0.008 0.008" pos="0.04 -0.02 0" euler="0 0 -0.3" rgba="0 0 1 1"/>
+                                    <geom type="box" size="0.03 0.008 0.008" pos="0.075 -0.03 0" euler="0 0 -1.2" rgba="0 0 0.8 1"/>
                                 </body>
                             </body>
                         </body>
